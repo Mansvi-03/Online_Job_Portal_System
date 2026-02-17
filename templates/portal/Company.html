@@ -1,0 +1,40 @@
+{% load static %}
+<!doctype html>
+<html>
+<head>
+    <title>Company</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+</head>
+<body>
+
+<div class="navbar">
+    <h2 class="logo">JOBIFY</h2>
+    <div class="nav-links">
+        <a href="{% url 'help' %}">Help</a>
+        <a href="{% url 'logout' %}">Logout</a>
+    </div>
+</div>
+
+<h2 class="dashboard-title">Company Dashboard</h2>
+
+<div class="card-container">
+
+    <a href="{% url 'post_job' %}" class="dash-card">
+        <h3>Post Job</h3>
+        <p>Create and publish new job openings</p>
+    </a>
+
+    <a href="{% url 'view_applications' %}" class="dash-card">
+        <h3>View Applications</h3>
+        <p>Check candidates who applied</p>
+    </a>
+
+    <a href="{% url 'schedule_interview' %}" class="dash-card">
+        <h3>Schedule Interview</h3>
+        <p>Arrange interviews with candidates</p>
+    </a>
+
+</div>
+
+</body>
+</html>

@@ -1,0 +1,26 @@
+{% load static %}
+<!doctype html>
+<html>
+  <head>
+    <title>Applications</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+  </head>
+  <body>
+    <div class="navbar">
+      <h2 class="logo">JOBIFY</h2>
+      <div class="nav-links">
+        <a href="{% url 'company' %}">Home</a>
+        <a href="{% url 'help' %}">Help</a>
+        <a href="{% url 'logout' %}">Logout</a>
+      </div>
+    </div>
+    {% for app in applications %}
+    <div class="card">
+      <h3>{{ app.candidate.name }}</h3>
+      <p>Job: {{ app.job.title }}</p>
+      <p>Experience: {{ app.experience }} years</p>
+      <a href="{{ app.resume.url }}" target="_blank">View Resume</a>
+    </div>
+    {% endfor %}
+  </body>
+</html>

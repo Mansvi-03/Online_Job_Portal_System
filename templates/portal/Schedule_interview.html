@@ -1,0 +1,29 @@
+{% load static %}
+<!doctype html>
+<html>
+  <head>
+    <title>Schedule Interview</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+  </head>
+  <body>
+    <div class="navbar">
+      <h2 class="logo">JOBIFY</h2>
+      <div class="nav-links">
+        <a href="{% url 'company' %}">Home</a>
+        <a href="{% url 'help' %}">Help</a>
+        <a href="{% url 'logout' %}">Logout</a>
+      </div>
+    </div>
+    <div class="container">
+      <div class="card small-card">
+        <h2>Schedule Interview</h2>
+
+        <form method="post">
+          {% csrf_token %}
+          <input type="date" name="date" required />
+          <button type="submit">Schedule</button>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>

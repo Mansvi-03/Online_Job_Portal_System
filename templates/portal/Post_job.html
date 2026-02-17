@@ -1,0 +1,43 @@
+{% load static %}
+<!doctype html>
+<html>
+  <head>
+    <title>Post Job</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+  </head>
+  <body>
+    <div class="navbar">
+      <h2 class="logo">JOBIFY</h2>
+      <div class="nav-links">
+        <a href="{% url 'company' %}">Home</a>
+        <a href="{% url 'help' %}">Help</a>
+        <a href="{% url 'logout' %}">Logout</a>
+      </div>
+    </div>
+    <div class="container">
+      <div class="card small-card">
+        <h2>Post Job</h2>
+        <form method="POST">
+          {% csrf_token %}
+
+          <input type="text" name="title" placeholder="Job Title" required />
+          <input
+            type="text"
+            name="company"
+            placeholder="Company Name"
+            required
+          />
+          <input
+            type="text"
+            name="location"
+            placeholder="Location (City)"
+            required
+          />
+          <input type="text" name="salary" placeholder="Salary" required />
+
+          <button type="submit">Post</button>
+        </form>
+      </div>
+    </div>
+  </body>
+</html>

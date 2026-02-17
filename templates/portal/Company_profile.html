@@ -1,0 +1,19 @@
+{% load static %}
+<!doctype html>
+<html>
+  <head>
+    <title>Company Profile</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+  </head>
+  <body>
+    <div class="container">
+      <h2>Update Company Profile</h2>
+      <form method="post">
+        {% csrf_token %}
+        <input type="text" placeholder="Company Name" />
+        <textarea placeholder="Company Description"></textarea>
+        <button type="submit">Update</button>
+      </form>
+    </div>
+  </body>
+</html>

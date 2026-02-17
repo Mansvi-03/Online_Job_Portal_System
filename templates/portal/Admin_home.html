@@ -1,0 +1,18 @@
+{% load static %}
+<!doctype html>
+<html>
+  <head>
+    <title>Admin Home</title>
+    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+  </head>
+  <body>
+    <div class="container">
+      <h2>Admin Dashboard</h2>
+      <a href="{% url 'view_applications' %}">View Applications</a>
+      <li><a href="#">Manage Users</a></li>
+      <li><a href="#">Manage Companies</a></li>
+      <li><a href="#">View Reports</a></li>
+      <li><a href="{% url 'logout' %}">Logout</a></li>
+    </div>
+  </body>
+</html>
