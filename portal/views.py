@@ -4,28 +4,57 @@ from .models import Job,Candidate, Application,Company
 def login(request):
     if request.method == "POST":
         email = request.POST.get("email")
+        password = request.POST.get("password")
         role = request.POST.get("role")
 
-        request.session['email'] = email
-        request.session['role'] = role  
-
         if role == "candidate":
-            return redirect('user_home')
+            user = Candidate.objects.filter(email=email, password=password).first()
         elif role == "company":
-            return redirect('company')
-        elif role == "admin":
-            return redirect('admin_home')
+            user = Company.objects.filter(email=email, password=password).first()
+        else:
+            user = None
+
+        if user:
+            request.session['email'] = user.email
+            request.session['role'] = role
+
+            if role == "candidate":
+                return redirect('user_home')
+            else:
+                return redirect('company')
+        else:
+            return render(request, 'portal/Login.html', {
+                'error': 'Invalid email or password'
+            })
 
     return render(request, 'portal/Login.html')
 
 
 def register(request):
     if request.method == "POST":
+        name = request.POST.get("name")
+        email = request.POST.get("email")
+        password = request.POST.get("password")
         role = request.POST.get("role")
 
+        # store session immediately (so user stays logged in after register)
+        request.session['email'] = email
+        request.session['role'] = role
+
         if role == "candidate":
+            Candidate.objects.create(
+                name=name,
+                email=email,
+                password=password
+            )
             return redirect('user_home')
+
         elif role == "company":
+            Company.objects.create(
+                name=name,
+                email=email,
+                password=password
+            )
             return redirect('company')
 
     return render(request, 'portal/Register.html')
