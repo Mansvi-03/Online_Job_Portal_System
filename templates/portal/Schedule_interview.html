@@ -20,7 +20,19 @@
 
         <form method="post">
           {% csrf_token %}
-          <input type="date" name="date" required />
+
+          <label>Date:</label>
+          <input type="date" name="date" required /><br /><br />
+
+          <label>Time:</label>
+          <input type="time" name="time" required /><br /><br />
+
+          <label>Mode:</label>
+          <select name="mode" required>
+            <option value="Online">Online</option>
+            <option value="Offline">Offline</option></select
+          ><br /><br />
+
           <button type="submit">Schedule</button>
         </form>
       </div>

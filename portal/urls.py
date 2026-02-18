@@ -14,6 +14,7 @@ urlpatterns = [
     path('company/', views.company, name='company'),
     path('post-job/', views.post_job, name='post_job'),
     path('view-applications/', views.view_applications, name='view_applications'),
+    path('approve/<int:app_id>/', views.approve_application, name='approve_application'),
     path('schedule-interview/', views.schedule_interview, name='schedule_interview'),
     path('logout/', views.logout, name='logout'),
 ]

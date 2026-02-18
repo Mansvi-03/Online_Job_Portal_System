@@ -75,7 +75,15 @@ def find_jobs(request):
     return render(request, 'portal/Find_jobs.html', {'jobs': jobs})
 
 def profile(request):
-    return render(request, 'portal/Profile.html')
+    email = request.session.get('email')
+    candidate = Candidate.objects.filter(email=email).first()
+
+    applications = Application.objects.filter(candidate=candidate)
+
+    return render(request, 'portal/Profile.html', {
+        'applications': applications
+    })
+
 
 def applied_jobs(request):
     # if request.session.get('role') != 'candidate':
@@ -149,7 +157,21 @@ def view_applications(request):
         'applications': applications
     })
 
+def approve_application(request, app_id):
+    application = Application.objects.get(id=app_id)
 
+    if request.method == "POST":
+        application.status = "Approved"
+        application.interview_date = request.POST.get("date")
+        application.interview_time = request.POST.get("time")
+        application.interview_mode = request.POST.get("mode")
+        application.save()
+
+        return redirect('view_applications')
+
+    return render(request, 'portal/Schedule_interview.html', {
+        'application': application
+    })
 
 
 def schedule_interview(request):
