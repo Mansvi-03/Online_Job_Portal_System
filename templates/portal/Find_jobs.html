@@ -4,38 +4,35 @@
   <head>
     <title>Find Jobs</title>
     <link rel="stylesheet" href="{% static 'css/style.css' %}" />
-    
   </head>
   <body>
     <div class="navbar">
-    <h2 class="logo">JOBIFY</h2>
-    <div class="nav-links">
+      <h2 class="logo">JOBIFY</h2>
+      <div class="nav-links">
         <a href="{% url 'user_home' %}">Home</a>
         <a href="{% url 'profile' %}">Profile</a>
         <a href="{% url 'help' %}">Help</a>
         <a href="{% url 'logout' %}">Logout</a>
+      </div>
     </div>
-</div>
+
     <form method="POST">
-{% csrf_token %}
-<input type="text" name="city" placeholder="Enter City">
-<button type="submit">Search</button>
-</form>
+      {% csrf_token %}
+      <input type="text" name="city" placeholder="Enter City" />
+      <button type="submit">Search</button>
+    </form>
 
-{% if jobs %}
-    {% for job in jobs %}
-        <div class="card">
-            <h3>{{ job.title }}</h3>
-            <p>{{ job.company }}</p>
-            <p>{{ job.location }}</p>
+    {% if jobs %} {% for job in jobs %}
+    <div class="card">
+      <h3>{{ job.title }}</h3>
+      <p>{{ job.company }}</p>
+      <p>{{ job.location }}</p>
 
-            <a href="{% url 'apply_job' job.id %}">
-    <button>Apply</button>
-</a>
-
-        </div>
-    {% endfor %}
-{% endif %}
+      <a href="{% url 'apply_job' job.id %}">
+        <button>Apply</button>
+      </a>
+    </div>
+    {% endfor %} {% endif %}
 
   </body>
 </html>

@@ -1,5 +1,6 @@
 from django.shortcuts import render, redirect
 from .models import Job,Candidate, Application,Company
+from django.contrib import messages
 
 def login(request):
     if request.method == "POST":
@@ -26,7 +27,6 @@ def login(request):
             return render(request, 'portal/Login.html', {
                 'error': 'Invalid email or password'
             })
-
     return render(request, 'portal/Login.html')
 
 
@@ -207,8 +207,56 @@ def apply_job(request, job_id):
         )
 
         return redirect('applied_jobs')
-
+    
     return render(request, 'portal/Apply_job.html', {'job': job})
 
+def forgot_password(request):
+    if request.method == "POST":
+        email = request.POST.get("email")
+        new_password = request.POST.get("password")
+        role = request.POST.get("role")
 
+        if role == "candidate":
+            user = Candidate.objects.filter(email=email).first()
+        elif role == "company":
+            user = Company.objects.filter(email=email).first()
+        else:
+            user = None
 
+        if user:
+            user.password = new_password
+            user.save()
+            return redirect('login')
+        else:
+            return render(request, 'portal/Forgot_password.html', {
+                'error': 'Email not found'
+            })
+
+    return render(request, 'portal/Forgot_password.html')
+
+def company_all_jobs(request):
+    company_email = request.session.get('email')
+
+    if not company_email:
+        return redirect('login')
+
+    company = Company.objects.filter(email=company_email).first()
+
+    if not company:
+        return redirect('login')
+
+    jobs = Job.objects.filter(company=company)
+
+    return render(request, 'portal/Company_all_jobs.html', {
+        'jobs': jobs
+    })
+
+def delete_job(request, job_id):
+    company_email = request.session.get('email')
+    company = Company.objects.filter(email=company_email).first()
+
+    job = Job.objects.filter(id=job_id, company=company).first()
+
+    if job:
+        job.delete()
+    return redirect('company_all_jobs')

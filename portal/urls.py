@@ -16,5 +16,8 @@ urlpatterns = [
     path('view-applications/', views.view_applications, name='view_applications'),
     path('approve/<int:app_id>/', views.approve_application, name='approve_application'),
     path('schedule-interview/', views.schedule_interview, name='schedule_interview'),
+    path('company-jobs/', views.company_all_jobs, name='company_all_jobs'),
+    path('delete-job/<int:job_id>/', views.delete_job, name='delete_job'),
+    path('forgot-password/', views.forgot_password, name='forgot_password'),
     path('logout/', views.logout, name='logout'),
 ]
