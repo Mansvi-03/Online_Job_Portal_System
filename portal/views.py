@@ -20,13 +20,14 @@ def login(request):
             request.session['role'] = role
 
             if role == "candidate":
+                messages.success(request, "Login Successful")
                 return redirect('user_home')
             else:
+                messages.success(request, "Login Successful")
                 return redirect('company')
         else:
-            return render(request, 'portal/Login.html', {
-                'error': 'Invalid email or password'
-            })
+            # messages.success(request, "Login Successful")
+            return render(request, 'portal/Login.html')
     return render(request, 'portal/Login.html')
 
 
@@ -47,7 +48,9 @@ def register(request):
                 email=email,
                 password=password
             )
+            messages.success(request, "Registered Successfully")
             return redirect('user_home')
+        
 
         elif role == "company":
             Company.objects.create(
@@ -55,6 +58,7 @@ def register(request):
                 email=email,
                 password=password
             )
+            messages.success(request, "Registered Successfully")
             return redirect('company')
 
     return render(request, 'portal/Register.html')
@@ -63,7 +67,12 @@ def admin_home(request):
     return render(request, 'portal/Admin_home.html')
 
 def user_home(request):
-    return render(request, 'portal/User.html')
+    email = request.session.get('email')
+    candidate = Candidate.objects.filter(email=email).first()
+
+    return render(request, 'portal/User.html', {
+        'candidate': candidate
+    })
 
 def find_jobs(request):
     jobs = None
@@ -109,7 +118,12 @@ def help_page(request):
     return render(request, 'portal/Help.html')
 
 def company(request):
-    return render(request, 'portal/Company.html')
+    email = request.session.get('email')
+    company = Company.objects.filter(email=email).first()
+
+    return render(request, 'portal/Company.html', {
+        'company': company
+    })
 
 def post_job(request):
     if request.method == "POST":
@@ -205,7 +219,7 @@ def apply_job(request, job_id):
             resume=resume,
             experience=experience
         )
-
+        messages.success(request, "Applied Successfully")
         return redirect('applied_jobs')
     
     return render(request, 'portal/Apply_job.html', {'job': job})
@@ -259,4 +273,5 @@ def delete_job(request, job_id):
 
     if job:
         job.delete()
+        messages.success(request, "Job Deleted Successfully")
     return redirect('company_all_jobs')

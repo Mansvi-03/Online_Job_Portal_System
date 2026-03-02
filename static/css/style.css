@@ -26,15 +26,24 @@ body {
   opacity: 0.8;
 }
 
+.logo {
+  color: white;
+  font-size: 30px;
+  font-weight: 600;
+}
+
 .card {
-  width: 360px; /* change this value */
-  max-width: 90%; /* responsive */
+  width: 360px;
+  /* change this value */
+  max-width: 90%;
+  /* responsive */
   margin: 80px auto;
   background: white;
   padding: 30px;
   border-radius: 10px;
   box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
 }
+
 h2 {
   text-align: center;
   margin-bottom: 20px;
@@ -86,6 +95,7 @@ button:hover {
   background: #2563eb;
   color: white;
 }
+
 /* NAVBAR */
 .navbar {
   background: #2563eb;
@@ -148,9 +158,11 @@ button:hover {
 }
 
 .small-card {
-  width: 400px; /* reduce width */
+  width: 400px;
+  /* reduce width */
   max-width: 90%;
-  margin: 60px auto; /* center it */
+  margin: 60px auto;
+  /* center it */
 }
 
 .alert {
@@ -169,4 +181,34 @@ button:hover {
 .error {
   background-color: #ffcccc;
   color: red;
+}
+
+.simple-popup {
+  position: fixed;
+  top: 40%;
+  left: 50%;
+  transform: translate(-50%, -50%);
+  background: #2a5298;
+  color: white;
+  padding: 15px 30px;
+  border-radius: 8px;
+  font-weight: 500;
+  box-shadow: 0 5px 20px rgba(0, 0, 0, 0.3);
+  z-index: 9999;
+  animation: fadeOut 2s ease forwards;
+}
+
+@keyframes fadeOut {
+  0% {
+    opacity: 1;
+  }
+
+  90% {
+    opacity: 1;
+  }
+
+  100% {
+    opacity: 0;
+    visibility: hidden;
+  }
 }

@@ -1,42 +1,64 @@
 {% load static %}
 <!doctype html>
 <html>
-  <head>
-    <title>Company</title>
-    <link rel="stylesheet" href="{% static 'css/style.css' %}" />
-  </head>
-  <body>
-    <div class="navbar">
-      <h2 class="logo">JOBIFY</h2>
-      <div class="nav-links">
-        <a href="{% url 'help' %}">Help</a>
-        <a href="{% url 'logout' %}">Logout</a>
-      </div>
+
+<head>
+  <title>Company</title>
+  <link rel="stylesheet" href="{% static 'css/style.css' %}" />
+</head>
+
+<body>
+  <div class="navbar">
+    <h2 class="logo">JOBIFY</h2>
+
+    <div class="nav-links">
+      <span>Welcome, {{ company.name }}</span>
+      <a href="{% url 'company' %}">Home</a>
+      <a href="{% url 'logout' %}">Logout</a>
     </div>
-    
-    <h2 class="dashboard-title">Company Dashboard</h2>
+  </div>
 
-    <div class="card-container">
-      <a href="{% url 'post_job' %}" class="dash-card">
-        <h3>Post Job</h3>
-        <p>Create and publish new job openings</p>
-      </a>
+  <h2 class="dashboard-title">Company Dashboard</h2>
 
-      <a href="{% url 'view_applications' %}" class="dash-card">
-        <h3>View Applications</h3>
-        <p>Check candidates who applied</p>
-      </a>
+  {% if messages %}
+  <div class="simple-popup">
+    {% for message in messages %}
+    {{ message }}
+    {% endfor %}
+  </div>
+  {% endif %}
 
-      <!-- <a href="{% url 'schedule_interview' %}" class="dash-card">
+  <script>
+    setTimeout(function () {
+      let popup = document.querySelector(".simple-popup");
+      if (popup) {
+        popup.remove();
+      }
+    }, 2000);  // 2000ms = 2 seconds
+  </script>
+
+  <div class="card-container">
+    <a href="{% url 'post_job' %}" class="dash-card">
+      <h3>Post Job</h3>
+      <p>Create and publish new job openings</p>
+    </a>
+
+    <a href="{% url 'view_applications' %}" class="dash-card">
+      <h3>View Applications</h3>
+      <p>Check candidates who applied</p>
+    </a>
+
+    <!-- <a href="{% url 'schedule_interview' %}" class="dash-card">
         <h3>Schedule Interview</h3>
         <p>Arrange interviews with candidates</p>
       </a> -->
 
-      <a href="{% url 'company_all_jobs' %}" class="dash-card">
-        <h3>All Jobs</h3>
-        <p>View and Delete posted jobs</p>
-      </a>
-    </div>
-    
-  </body>
+    <a href="{% url 'company_all_jobs' %}" class="dash-card">
+      <h3>All Jobs</h3>
+      <p>View and Delete posted jobs</p>
+    </a>
+  </div>
+
+</body>
+
 </html>
