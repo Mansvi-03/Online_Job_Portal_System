@@ -63,9 +63,6 @@ def register(request):
 
     return render(request, 'portal/Register.html')
 
-def admin_home(request):
-    return render(request, 'portal/Admin_home.html')
-
 def user_home(request):
     email = request.session.get('email')
     candidate = Candidate.objects.filter(email=email).first()
