@@ -19,4 +19,5 @@ urlpatterns = [
     path('delete-job/<int:job_id>/', views.delete_job, name='delete_job'),
     path('forgot-password/', views.forgot_password, name='forgot_password'),
     path('logout/', views.logout, name='logout'),
-]
+    path('delete-application/<int:app_id>/', views.delete_application, name='delete_application'),
+]   

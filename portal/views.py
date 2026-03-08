@@ -272,3 +272,15 @@ def delete_job(request, job_id):
         job.delete()
         messages.success(request, "Job Deleted Successfully")
     return redirect('company_all_jobs')
+
+def delete_application(request, app_id):
+    email = request.session.get('email')
+    candidate = Candidate.objects.filter(email=email).first()
+
+    application = Application.objects.filter(id=app_id, candidate=candidate).first()
+
+    if application:
+        application.delete()
+        messages.success(request, "Application Deleted Successfully")
+
+    return redirect('applied_jobs')

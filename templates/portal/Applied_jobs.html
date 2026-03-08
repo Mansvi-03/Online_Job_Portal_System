@@ -45,6 +45,11 @@
             <p>{{ app.job.company }}</p>
             <p>{{ app.job.location }}</p>
             <small>Applied on {{ app.applied_on }}</small>
+            <br><br>
+
+            <a href="{% url 'delete_application' app.id %}" class="delete-btn">
+                Delete Application
+            </a>
         </div>
         {% empty %}
         <p>No jobs applied yet</p>
