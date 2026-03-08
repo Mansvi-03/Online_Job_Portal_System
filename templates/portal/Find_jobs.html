@@ -32,7 +32,10 @@
         <button>Apply</button>
       </a>
     </div>
-    {% endfor %} {% endif %}
-
+    {% endfor %} {% else %} {% if request.method == "POST" %}
+    <p style="text-align: center; color: red; margin-top: 20px">
+      No jobs found for this city
+    </p>
+    {% endif %} {% endif %}
   </body>
 </html>
